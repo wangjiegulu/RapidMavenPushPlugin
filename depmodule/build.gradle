@@ -1,0 +1,69 @@
+import com.wangjiegulu.plg.rapidmavenpush.RapidMavenPushPlugin
+
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion global_compileSdkVersion
+
+    defaultConfig {
+        minSdkVersion global_minSdkVersion
+        targetSdkVersion global_targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation "com.android.support:appcompat-v7:$global_supportVersion"
+    testImplementation "junit:junit:$global_junitVersion"
+    androidTestImplementation "com.android.support.test:runner:$global_runnerVersion"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:$global_espressoVersion"
+
+}
+
+//ext.RAPID_MAVEN_PUSH_TYPE=["hello", "world"]
+
+//apply plugin: 'com.github.wangjiegulu.plg.rapidmavenpush'
+apply plugin: RapidMavenPushPlugin
+
+ext.POM_MAVEN_TYPE = 'local' // for test
+
+rapidMavenPush {
+    printProperties = true
+    abortOnError = false
+    mavens {
+        maven {
+            mavenType = 'local'
+//            propertyFiles = [file("${project.rootDir}/mavenupload/maven_local/maven_push.properties"), file('bbb')]
+            propertyFiles = [
+                    file("../mavenupload/maven_local/maven_push.properties"),
+                    file("${project.rootDir}/mavenupload/maven_local/maven_push.properties"),
+                    file('bbb')
+            ]
+            propertyInjectMode = 'replace'
+        }
+        maven {
+            mavenType = 'central'
+            propertyFiles = [
+                    file("../mavenupload/central/maven_push.properties"),
+                    file("${project.rootDir}/mavenupload/central/maven_push.properties"),
+                    file('bbb')
+            ]
+            propertyInjectMode = 'skip'
+        }
+    }
+
+}

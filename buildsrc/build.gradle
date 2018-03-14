@@ -1,0 +1,32 @@
+apply plugin: 'groovy'
+apply plugin: 'maven'
+
+dependencies {
+    implementation gradleApi()
+    implementation localGroovy()
+    implementation 'com.android.tools.build:gradle:3.0.1'
+//    compile 'org.javassist:javassist:3.21.0-GA'
+//    compile 'com.github.wangjiegulu:discardfile-api:1.0.1'
+}
+
+// --refresh-dependencies
+configurations.all {
+    // check for updates every build
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
+
+repositories {
+    jcenter()
+    maven {
+        url 'https://maven.google.com/'
+        name 'Google'
+    }
+    maven {
+        url uri('/Users/wangjie/.m2/repository')
+    }
+}
+
+//apply from: 'nexus_jar_local.gradle'
+//apply from: 'nexus_jar_db.gradle'
+//apply from: 'nexus_jar_center.gradle'
+
