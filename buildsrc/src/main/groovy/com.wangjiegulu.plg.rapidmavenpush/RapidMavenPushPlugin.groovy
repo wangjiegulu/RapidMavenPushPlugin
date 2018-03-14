@@ -27,21 +27,31 @@ class RapidMavenPushPlugin implements Plugin<Project> {
 
         parameterParser = new RapidParameterParser(project)
 
-        println("+-----------------------------------------------------------------------------------+")
-        println("|                      Rapid Maven Property Inject START                            |")
-        println("+-----------------------------------------------------------------------------------+")
-
         project.extensions.create(RapidMavenPushConstants.EXTENSION_NAME, RapidMavenPushExtension, instantiator, project)
         project[RapidMavenPushConstants.EXTENSION_NAME].extensions.create(RapidMavenPushConstants.EXTENSION_NAME_MAVENS, RapidMavenPushExtension.RapidMavenPushTypes, project)
 
         project.afterEvaluate {
-            def mvnType = parameterParser.getParameter(MavenPushPropertyKeys.POM_MAVEN_TYPE, null)
+            RapidMavenPushExtension rapidMavenPushExtension = project[RapidMavenPushConstants.EXTENSION_NAME]
+            if (rapidMavenPushExtension.disable) {
+                RapidMavenPushLog.w("Rapid Maven Push Plugin is DISABLED.\n\n" +
+                        "Enable plugin in `build.gradle`: \n" +
+                        "rapidMavenPush {\n" +
+                        "    disable = false\n" +
+                        "}\n")
+                return
+            }
+
+            println("+-----------------------------------------------------------------------------------+")
+            println("|                      Rapid Maven Property Inject START                            |")
+            println("+-----------------------------------------------------------------------------------+")
+
+            def mvnType = parameterParser.getParameter(MavenPushPropertyKeys.POM_MAVEN_TYPE, rapidMavenPushExtension.defaultMavenType)
+
             if (null == mvnType) {
                 RapidMavenPushLog.w("POM_MAVEN_TYPE property is null. Please `ext.POM_MAVEN_TYPE` in build.gradle or `./gradlew clean rapidUploadArchives -POM_MAVEN_TYPE=...` in command line.")
                 return
             }
 
-            RapidMavenPushExtension rapidMavenPushExtension = project[RapidMavenPushConstants.EXTENSION_NAME]
             HashMap<String, RapidMavenPushExtension.RapidMavenPushType> rapidMavenPushTypes = rapidMavenPushExtension[RapidMavenPushConstants.EXTENSION_NAME_MAVENS].rapidMavenPushTypes
             printProperties = rapidMavenPushExtension.printProperties
             abortOnError = rapidMavenPushExtension.abortOnError

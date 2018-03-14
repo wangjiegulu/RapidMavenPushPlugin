@@ -1,0 +1,14 @@
+apply plugin: 'maven'
+group = "$larchiveGroup"
+version = "$larchiveVersion"
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: uri('/Users/wangjie/.m2/repository'))
+            pom.project {
+                artifactId "$larchiveName"
+            }
+        }
+    }
+}

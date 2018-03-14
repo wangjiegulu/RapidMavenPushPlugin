@@ -26,7 +26,8 @@ repositories {
     }
 }
 
-//apply from: 'nexus_jar_local.gradle'
-//apply from: 'nexus_jar_db.gradle'
-//apply from: 'nexus_jar_center.gradle'
+
+//apply from: 'nexus_jar_local.gradle' // comment me!
+apply from: 'nexus_jar_db.gradle' // comment me!
+//apply from: 'nexus_jar_center.gradle' // comment me!
 

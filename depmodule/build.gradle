@@ -1,5 +1,3 @@
-import com.wangjiegulu.plg.rapidmavenpush.RapidMavenPushPlugin
-
 apply plugin: 'com.android.library'
 
 android {
@@ -37,13 +35,18 @@ dependencies {
 //ext.RAPID_MAVEN_PUSH_TYPE=["hello", "world"]
 
 //apply plugin: 'com.github.wangjiegulu.plg.rapidmavenpush'
+import com.wangjiegulu.plg.rapidmavenpush.RapidMavenPushPlugin
+import com.wangjiegulu.plg.rapidmavenpush.RapidParameterParser
+
 apply plugin: RapidMavenPushPlugin
 
-ext.POM_MAVEN_TYPE = 'local' // for test
+apply plugin: 'com.github.wangjiegulu.plg.rapidmetainf'
 
 rapidMavenPush {
     printProperties = true
     abortOnError = false
+    disable = false
+    defaultMavenType = 'local'
     mavens {
         maven {
             mavenType = 'local'
@@ -65,5 +68,14 @@ rapidMavenPush {
             propertyInjectMode = 'skip'
         }
     }
+}
 
+project.afterEvaluate {
+    // META-INF properties
+    RapidParameterParser rapidParameterParser = new RapidParameterParser(project)
+    rapidmetainf {
+        metaInfName 'depmodule.properties'
+        metaInfProperties "archiveName=${rapidParameterParser.getParameter('POM_ARCHIVE_ID', null)}"
+
+    }
 }

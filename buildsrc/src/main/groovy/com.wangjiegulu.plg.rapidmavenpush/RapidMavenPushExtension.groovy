@@ -15,6 +15,8 @@ class RapidMavenPushExtension {
 
     boolean printProperties = false
     boolean abortOnError = false
+    boolean disable = false
+    String defaultMavenType = null
 
     /**
      * RapidMavenPushConstants.EXTENSION_NAME_MAVENS
