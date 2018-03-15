@@ -47,22 +47,27 @@ rapidMavenPush {
     mavens {
         maven {
             mavenType = 'local'
-//            propertyFiles = [file("${project.rootDir}/mavenupload/maven_local/maven_push.properties"), file('bbb')]
             propertyFiles = [
-                    file("../mavenupload/maven_local/maven_push.properties"),
-                    file("${project.rootDir}/mavenupload/maven_local/maven_push.properties"),
-                    file('bbb')
+                    file("${project.rootDir}/mavenupload/maven_common.properties"),
+                    file("${project.rootDir}/mavenupload/maven_local.properties")
+            ]
+            propertyInjectMode = 'replace'
+        }
+        maven {
+            mavenType = 'company'
+            propertyFiles = [
+                    file("${project.rootDir}/mavenupload/maven_common.properties"),
+                    file("${project.rootDir}/mavenupload/maven_company.properties")
             ]
             propertyInjectMode = 'replace'
         }
         maven {
             mavenType = 'central'
             propertyFiles = [
-                    file("../mavenupload/central/maven_push.properties"),
-                    file("${project.rootDir}/mavenupload/central/maven_push.properties"),
-                    file('bbb')
+                    file("${project.rootDir}/mavenupload/maven_common.properties"),
+                    file("${project.rootDir}/mavenupload/maven_central.properties")
             ]
-            propertyInjectMode = 'skip'
+            propertyInjectMode = 'replace'
         }
     }
 }
