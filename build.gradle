@@ -6,7 +6,7 @@ buildscript {
         google()
         jcenter()
         maven {
-            url uri('/Users/wangjie/.m2/repository')
+            url uri("${System.getProperty('user.home')}/.m2/repository")
         }
     }
     dependencies {
@@ -24,6 +24,9 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven {
+            url uri("${System.getProperty('user.home')}/.m2/repository")
+        }
 //    flatDir {
 //        dirs 'libs'
 //    }
