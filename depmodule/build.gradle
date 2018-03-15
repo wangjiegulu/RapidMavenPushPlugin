@@ -36,11 +36,8 @@ dependencies {
 
 //apply plugin: 'com.github.wangjiegulu.plg.rapidmavenpush'
 import com.wangjiegulu.plg.rapidmavenpush.RapidMavenPushPlugin
-import com.wangjiegulu.plg.rapidmavenpush.RapidParameterParser
 
 apply plugin: RapidMavenPushPlugin
-
-apply plugin: 'com.github.wangjiegulu.plg.rapidmetainf'
 
 rapidMavenPush {
     printProperties = true
@@ -70,12 +67,13 @@ rapidMavenPush {
     }
 }
 
-project.afterEvaluate {
-    // META-INF properties
-    RapidParameterParser rapidParameterParser = new RapidParameterParser(project)
-    rapidmetainf {
-        metaInfName 'depmodule.properties'
-        metaInfProperties "archiveName=${rapidParameterParser.getParameter('POM_ARCHIVE_ID', null)}"
-
-    }
-}
+//apply plugin: 'com.github.wangjiegulu.plg.rapidmetainf'
+//project.afterEvaluate {
+//    // META-INF properties
+//    RapidParameterParser rapidParameterParser = new RapidParameterParser(project)
+//    rapidmetainf {
+//        metaInfName 'depmodule.properties'
+//        metaInfProperties "archiveName=${rapidParameterParser.getParameter('POM_ARCHIVE_ID', null)}"
+//
+//    }
+//}

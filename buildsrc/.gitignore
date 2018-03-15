@@ -2,5 +2,5 @@
 
 gradle.properties
 nexus_jar_db.gradle
-nexus_jar_center.gradle
+nexus_jar_central.gradle
 nexus_jar_local.gradle
