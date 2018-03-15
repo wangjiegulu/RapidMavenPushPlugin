@@ -1,1 +1,1 @@
-include ':app', ':buildsrc', ':depmodule'
+include ':app', ':buildsrc', ':depmodule', ':depjavamodule'

@@ -1,6 +1,7 @@
 package com.wangjiegulu.plg.rapidmavenpush
 
 import org.gradle.api.Project
+import org.gradle.api.Task
 import org.gradle.api.artifacts.maven.MavenDeployment
 import org.gradle.api.tasks.Upload
 import org.gradle.api.tasks.bundling.Jar
@@ -44,7 +45,7 @@ class RapidMavenPushTask {
 
 //        Task configureArtifacts = project.tasks.create("configureArtifacts")
         // archives
-        if ('aar' == pomPackaging) {
+        if ('aar'.equalsIgnoreCase(pomPackaging)) {
             Javadoc androidJavadocs = project.getTasks().create([name: "androidJavadocs", type: Javadoc]) {
                 source = project.android.sourceSets.main.java.srcDirs
                 classpath += project.files(project.android.getBootClasspath().join(File.pathSeparator))
@@ -66,16 +67,17 @@ class RapidMavenPushTask {
 
 //            configureArtifacts.dependsOn(androidSourcesJar, androidJavadocsJar, androidJavadocs)
 
-        } else if ('jar' == pomPackaging) {
-
-            Jar sourcesJar = project.task("sourcesJar", type: Jar, dependsOn: classes) {
+        } else if ('jar'.equalsIgnoreCase(pomPackaging)) {
+            Task classesTask = project.tasks.getByName('classes')
+            Jar sourcesJar = project.task("sourcesJar", type: Jar, dependsOn: classesTask) {
                 classifier = 'sources'
                 from project.sourceSets.main.allSource
             }
 
-            Jar javadocJar = project.task("javadocJar", type: Jar, dependsOn: classes) {
+            Task javadocTask = project.tasks.getByName('javadoc')
+            Jar javadocJar = project.task("javadocJar", type: Jar, dependsOn: javadocTask) {
                 classifier = 'javadoc'
-                from project.tasks.getByName('javadoc').destinationDir
+                from javadocTask.destinationDir
             }
 
 //            project.artifacts {

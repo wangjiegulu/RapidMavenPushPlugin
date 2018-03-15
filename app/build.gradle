@@ -24,6 +24,7 @@ dependencies {
     implementation "com.android.support.constraint:constraint-layout:$global_constraintLayoutVersion"
 
     implementation project(':depmodule')
+    implementation project(':depjavamodule')
 //    implementation(name:'depmodule-release', ext:'aar')
 
     testImplementation "junit:junit:$global_junitVersion"
