@@ -112,8 +112,8 @@ rapidMavenPush {
         maven {
             mavenType = 'local'
             propertyFiles = [
-                    file("${project.rootDir}/mavenupload/maven_common.properties"),
-                    file("${project.rootDir}/mavenupload/maven_local.properties")
+                    file("mavenupload/maven_common.properties"),
+                    file("mavenupload/maven_local.properties")
             ]
             // Property Inject Mode: If the properties is already set, replace it or skip
             // property 注入模式：如果 properties 已经被设置过，则替换还是跳过
@@ -122,16 +122,16 @@ rapidMavenPush {
         maven {
             mavenType = 'company'
             propertyFiles = [
-                    file("${project.rootDir}/mavenupload/maven_common.properties"),
-                    file("${project.rootDir}/mavenupload/maven_company.properties")
+                    file("mavenupload/maven_common.properties"),
+                    file("mavenupload/maven_company.properties")
             ]
             propertyInjectMode = 'replace'
         }
         maven {
             mavenType = 'central'
             propertyFiles = [
-                    file("${project.rootDir}/mavenupload/maven_common.properties"),
-                    file("${project.rootDir}/mavenupload/maven_central.properties")
+                    file("mavenupload/maven_common.properties"),
+                    file("mavenupload/maven_central.properties")
             ]
             propertyInjectMode = 'replace'
         }
