@@ -1,16 +1,14 @@
 # RapidMavenPushPlugin
 
-A Gradle plugin : Upload your library Artifacts to Multi Maven Repository.
+用于上传你的 library 库到多个 Maven 仓库的 Gradle 插件。
 
-[中文版本](README_zh.md)
+## 1. 怎么使用
 
-## 1. How to use
+### 1.1 添加依赖
 
-### 1.1 Dependencies
+在你项目根目录的 `build.gradle` 文件中增加 `RapidMavenPushPlugin` 依赖：
 
-Add `RapidMavenPushPlugin` dependencies in `build.gradle` of your root project:
-
-**[Check Newest Version](http://search.maven.org/#search%7Cga%7C1%7Crapidmavenpush)**
+**[检查最新版本](http://search.maven.org/#search%7Cga%7C1%7Crapidmavenpush)**
 
 ```gradle
 buildscript {
@@ -29,16 +27,16 @@ buildscript {
 }
 ```
 
-### 1.2 Create properties files
+### 1.2 创建 properties files
 
-Now you have 3 `maven type`s, so create 3 maven upload archive properties files & 1 common archive properties file (properties file's name & location can be arbitrary):
+现在你有3个 Maven 仓库（`maven type`s），所以需要创建3个 maven properties archive 文件和1个通用的 archive properties 文件（properties 文件的名字和位置可以是任意的）：
 
-- **maven_local.properties**: Upload archives to local maven repository, default in your computer is `~/.m2/repository`.
-- **maven_company.properties**: Upload archives to your company's maven repository which deploy in your company server.
-- **maven_central.properties**: Upload archives to maven central repository.
-- **common.properties**: Common properties for 3 maven types above.
+- **maven_local.properties**: 上传 archives 到本地的 maven 仓库, 默认在你电脑的 `~/.m2/repository`。
+- **maven_company.properties**: 上传 archives 到你公司的 maven 仓库，他部署在你公司的服务器上面。
+- **maven_central.properties**: 上传 archives 到 maven 中央库。
+- **common.properties**: 上面3个 maven 仓库的通用 properties。
 
-> **NOTE**: When `project.afterEvaluate`, all properties are automatically injected into `project.ext`, so you can use it like `$POM_ARCHIVE_ID` after that.
+> **NOTE**: 当 `project.afterEvaluate` 时, 所有 properties 都会被自动注入到 `project.ext`中，所以在那之后你可以以诸如 `$POM_ARCHIVE_ID` 的方式来使用它们。
 
 #### 1.2.1 maven_common.properties
 
@@ -94,45 +92,46 @@ POM_SIGN=true
 POM_ARCHIVE_ID=mavenpush-plugin-depmodule
 ```
 
-### 1.3 Apply Plugin & properties
+### 1.3 应用 Plugin & properties
 
-In `build.gradle` of your library, you need to apply RapidMaven PushPlugin as below:
+在你 library 的 `build.gradle` 文件中, 你需要以如下方式来 apply RapidMavenPushPlugin 插件：
 
 ```gradle
 apply plugin: 'com.github.wangjiegulu.plg.rapidmavenpush'
 
 rapidMavenPush {
-    // If true, print injected properties in compile time
+    // 如果是 true，会在编译时期打印被注入的 properties
     printProperties = true
-    // If true, abort compile when inject properties error
+    // 如果是 true，在注入 properties 发生错误时会终止编译
     abortOnError = false
-    // If disable Rapid Maven Push Plugin
+    // 是否禁用 Rapid Maven Push Plugin
     disable = false
-    // Default maven type if `POM_MAVEN_TYPE` is not set.
+    // 如果 `POM_MAVEN_TYPE` 没有被设置，则使用默认的 maven type。
     defaultMavenType = 'local'
     mavens {
         maven {
             mavenType = 'local'
             propertyFiles = [
-                    file("mavenupload/maven_common.properties"),
-                    file("mavenupload/maven_local.properties")
+                    file("${project.rootDir}/mavenupload/maven_common.properties"),
+                    file("${project.rootDir}/mavenupload/maven_local.properties")
             ]
             // Property Inject Mode: If the properties is already set, replace it or skip
+            // property 注入模式：如果 properties 已经被设置过，则替换还是跳过
             propertyInjectMode = 'replace'
         }
         maven {
             mavenType = 'company'
             propertyFiles = [
-                    file("mavenupload/maven_common.properties"),
-                    file("mavenupload/maven_company.properties")
+                    file("${project.rootDir}/mavenupload/maven_common.properties"),
+                    file("${project.rootDir}/mavenupload/maven_company.properties")
             ]
             propertyInjectMode = 'replace'
         }
         maven {
             mavenType = 'central'
             propertyFiles = [
-                    file("mavenupload/maven_common.properties"),
-                    file("mavenupload/maven_central.properties")
+                    file("${project.rootDir}/mavenupload/maven_common.properties"),
+                    file("${project.rootDir}/mavenupload/maven_central.properties")
             ]
             propertyInjectMode = 'replace'
         }
@@ -140,30 +139,31 @@ rapidMavenPush {
 }
 ```
 
-### 1.4 Upload Archives
+### 1.4 上传 Archives
 
-After compile, rapid maven push plugin created a task automatically named `rapidUploadArchives`.
+在编译之后，rapid maven push plugin 自动创建了一个名为 `rapidUploadArchives` 的 task。
 
-Just run this task!
+执行这个 task !
 
-**Upload archives to local repository:**
+**上传 archives 到本地仓库:**
 
 ```
 ./gradlew clean :depmodule:rapidUploadArchives -PPOM_MAVEN_TYPE=local
 ```
 
-**Upload archives to central repository:**
+**上传 archives to 到中央库:**
 
 ```
 ./gradlew clean :depmodule:rapidUploadArchives -PPOM_MAVEN_TYPE=central
 ```
 
-> **NOTE**: `POM_MAVEN_TYPE` parameter is necessary if you haven't set it in `build.gradle` with `ext.POM_MAVEN_TYPE=xxx`.
+> **NOTE**: 如果你没有在 `build.gradle` 使用 `ext.POM_MAVEN_TYPE=xxx` 的方式进行设置的话，`POM_MAVEN_TYPE` 参数是必要的。
 
-### 1.5 Supported parameters & properties
+
+### 1.5 支持的 parameters & properties
 
 ```
-// maven type, only `ext.POM_MAVEN_TYPE=xxx` in build.gradle or `-PPOM_MAVEN_TYPE=xxx` in command or `PPOM_MAVEN_TYPE=xxx` in `gradle.properties`.
+// maven type, 只能通过在 `build.gradle` 设置 `ext.POM_MAVEN_TYPE=xxx` 或者在命令行中设置 `-PPOM_MAVEN_TYPE=xxx` 或者在 `gradle.properties` 中设置 `PPOM_MAVEN_TYPE=xxx`
 POM_MAVEN_TYPE
 
 // maven repository parameters
