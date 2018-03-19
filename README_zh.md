@@ -163,7 +163,7 @@ rapidMavenPush {
 ### 1.5 支持的 parameters & properties
 
 ```
-// maven type, 只能通过在 `build.gradle` 设置 `ext.POM_MAVEN_TYPE=xxx` 或者在命令行中设置 `-PPOM_MAVEN_TYPE=xxx` 或者在 `gradle.properties` 中设置 `PPOM_MAVEN_TYPE=xxx`
+// maven type, 只能通过在 `build.gradle` 设置 `ext.POM_MAVEN_TYPE=xxx` 或者在命令行中设置 `-PPOM_MAVEN_TYPE=xxx` 或者在 `gradle.properties` 中设置 `POM_MAVEN_TYPE=xxx`
 POM_MAVEN_TYPE
 
 // maven repository parameters

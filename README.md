@@ -163,7 +163,7 @@ Just run this task!
 ### 1.5 Supported parameters & properties
 
 ```
-// maven type, only `ext.POM_MAVEN_TYPE=xxx` in build.gradle or `-PPOM_MAVEN_TYPE=xxx` in command or `PPOM_MAVEN_TYPE=xxx` in `gradle.properties`.
+// maven type, only `ext.POM_MAVEN_TYPE=xxx` in build.gradle or `-PPOM_MAVEN_TYPE=xxx` in command or `POM_MAVEN_TYPE=xxx` in `gradle.properties`.
 POM_MAVEN_TYPE
 
 // maven repository parameters
