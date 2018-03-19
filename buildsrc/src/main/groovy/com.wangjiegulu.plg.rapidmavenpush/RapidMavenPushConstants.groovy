@@ -18,4 +18,8 @@ class RapidMavenPushConstants {
      * {@link com.wangjiegulu.plg.rapidmavenpush.RapidMavenPushExtension.RapidMavenPushType}
      */
     static String PROPERTY_INJECT_MODE_REPLACE = "replace"
+
+    static String PACKAGING_AAR = "aar"
+
+    static String PACKAGING_JAR = "jar"
 }

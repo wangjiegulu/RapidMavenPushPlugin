@@ -1,4 +1,5 @@
 package com.wangjiegulu.plg.rapidmavenpush
+
 import org.gradle.api.Project
 
 class RapidParameterParser {
@@ -9,7 +10,8 @@ class RapidParameterParser {
     }
 
     def getStringParameter(String key) {
-        return String.valueOf(getParameter(key, null))
+        Object result = getParameter(key, null)
+        return null == result ? null : String.valueOf(result)
     }
 
     def getBooleanParameter(String key) {
