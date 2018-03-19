@@ -46,8 +46,8 @@ Now you have 3 `maven type`s, so create 3 maven upload archive properties files 
 # project info
 POM_ARCHIVE_GROUP=com.github.wangjiegulu
 #POM_ARCHIVE_VERSION_NAME=0.0.1-SNAPSHOT (command typed)
-# aar or jar
-POM_PACKAGING=aar
+# aar or jar or unset(parse automatically by plugin)
+#POM_PACKAGING=aar
 POM_DESC=test-mavenpush-plugin
 POM_URL=https://github.com/wangjiegulu
 POM_SCM_URL=scm:git@github.com:wangjiegulu

@@ -44,8 +44,8 @@ buildscript {
 # project info
 POM_ARCHIVE_GROUP=com.github.wangjiegulu
 #POM_ARCHIVE_VERSION_NAME=0.0.1-SNAPSHOT (command typed)
-# aar or jar
-POM_PACKAGING=aar
+# aar 或者 jar 或者 不设置(插件会自动解析)
+#POM_PACKAGING=aar
 POM_DESC=test-mavenpush-plugin
 POM_URL=https://github.com/wangjiegulu
 POM_SCM_URL=scm:git@github.com:wangjiegulu
