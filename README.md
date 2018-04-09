@@ -179,6 +179,7 @@ signing.password
 signing.secretKeyRingFile
 
 // archive parameters
+POM_OPEN_SOURCE             // is open source archives(since v0.0.5), default true. if true, packaging with doc.jar & source.jar; if false, without doc.jar & source.jar.
 POM_ARCHIVE_GROUP
 POM_ARCHIVE_ID
 POM_ARCHIVE_VERSION_NAME

@@ -179,6 +179,7 @@ signing.password
 signing.secretKeyRingFile
 
 // archive parameters
+POM_OPEN_SOURCE             // 是否是开源（从v0.0.5开始），默认 true。 如果是true, 会同时打包 doc.jar & source.jar; 如果是 false, 不会打包 with doc.jar & source.jar.
 POM_ARCHIVE_GROUP
 POM_ARCHIVE_ID
 POM_ARCHIVE_VERSION_NAME
