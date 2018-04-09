@@ -7,6 +7,9 @@ package com.wangjiegulu.rapidmavenpush.depmodule;
  */
 public class DepmoduleTest {
     public static void run(){
+        runInternal();
+    }
+    private static void runInternal(){
         System.out.println("run in depmoduletest");
     }
 }

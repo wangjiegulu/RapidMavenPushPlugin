@@ -17,6 +17,8 @@ class MavenPushPropertyKeys {
     static String POM_SIGNING_SECRET_KEY_RING_FILE = "signing.secretKeyRingFile"
 
     // archive parameters
+    // is open source, default true
+    static String POM_OPEN_SOURCE = "POM_OPEN_SOURCE"
     static String POM_ARCHIVE_GROUP = "POM_ARCHIVE_GROUP"
     static String POM_ARCHIVE_ID = "POM_ARCHIVE_ID"
     static String POM_ARCHIVE_VERSION_NAME = "POM_ARCHIVE_VERSION_NAME"

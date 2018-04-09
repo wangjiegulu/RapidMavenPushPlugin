@@ -14,9 +14,13 @@ class RapidParameterParser {
         return null == result ? null : String.valueOf(result)
     }
 
-    def getBooleanParameter(String key) {
-        Object result = getParameter(key, false)
+    def getBooleanParameter(String key, boolean defaultValue) {
+        Object result = getParameter(key, defaultValue)
         return Boolean.valueOf(result)
+    }
+
+    def getBooleanParameter(String key) {
+        return getBooleanParameter(key, false)
     }
 
     def getParameter(String key, Object defaultValue) {

@@ -1,6 +1,5 @@
 package com.wangjiegulu.plg.rapidmavenpush
 
-import com.android.build.gradle.AppPlugin
 import com.android.build.gradle.LibraryPlugin
 import org.gradle.api.Project
 import org.gradle.api.Task
@@ -44,11 +43,18 @@ class RapidMavenPushTask {
         RapidMavenPushLog.i("Origin Packaging: $originPackaging")
         def pomPackaging = parseRealPackaging(originPackaging)
         RapidMavenPushLog.i("Parsed Packaging: $pomPackaging")
+
+        boolean openSource = parameterParser.getBooleanParameter(MavenPushPropertyKeys.POM_OPEN_SOURCE, true)
+
         // archives
         if (RapidMavenPushConstants.PACKAGING_AAR.equalsIgnoreCase(pomPackaging)) {
-            prepareAARArtifacts(project)
+            if (openSource) {
+                prepareAARArtifacts(project)
+            }
         } else if (RapidMavenPushConstants.PACKAGING_JAR.equalsIgnoreCase(pomPackaging)) {
-            prepareJARArtifacts(project)
+            if (openSource) {
+                prepareJARArtifacts(project)
+            }
         } else {
             throw new RuntimeException("Unknown POM packaging: " + pomPackaging)
         }
