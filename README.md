@@ -1,5 +1,9 @@
 # RapidMavenPushPlugin
 
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.wangjiegulu/rapidmavenpush/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.wangjiegulu/rapidmavenpush) [![](https://img.shields.io/badge/license-Apache%202-orange.svg)](http://www.apache.org/licenses/LICENSE-2.0) ![API](https://img.shields.io/badge/API-1%2B-brightgreen.svg?style=flat)
+
+[![](https://img.shields.io/badge/blog-Wang%20Jie-228377.svg)](https://blog.wangjiegulu.com) [![](https://img.shields.io/badge/twitter-@wangjiegulu-blue.svg)](https://twitter.com/wangjiegulu)
+
 A Gradle plugin : Upload your library Artifacts to Multi Maven Repository.
 
 [中文版本](README_zh.md)
