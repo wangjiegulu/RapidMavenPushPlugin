@@ -14,7 +14,7 @@ A Gradle plugin : Upload your library Artifacts to Multi Maven Repository.
 
 Add `RapidMavenPushPlugin` dependencies in `build.gradle` of your root project:
 
-**[Check Newest Version](http://search.maven.org/#search%7Cga%7C1%7Crapidmavenpush)**
+**Newest Version:** [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.wangjiegulu/rapidmavenpush/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.wangjiegulu/rapidmavenpush)
 
 ```gradle
 buildscript {
