@@ -17,6 +17,7 @@ class RapidMavenPushExtension {
     boolean abortOnError = false
     boolean disable = false
     String defaultMavenType = null
+    String defaultVersionName = null
 
     /**
      * RapidMavenPushConstants.EXTENSION_NAME_MAVENS
@@ -61,8 +62,4 @@ class RapidMavenPushExtension {
                     '}';
         }
     }
-
-
 }
-
-

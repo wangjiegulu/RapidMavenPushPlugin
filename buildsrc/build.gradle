@@ -4,7 +4,7 @@ apply plugin: 'maven'
 dependencies {
     implementation gradleApi()
     implementation localGroovy()
-    implementation 'com.android.tools.build:gradle:3.0.1'
+    implementation 'com.android.tools.build:gradle:3.2.1'
 //    compile 'org.javassist:javassist:3.21.0-GA'
 //    compile 'com.github.wangjiegulu:discardfile-api:1.0.1'
 }
