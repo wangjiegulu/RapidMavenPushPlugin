@@ -45,6 +45,7 @@ rapidMavenPush {
     abortOnError = false
     disable = false
     defaultMavenType = 'local'
+    defaultVersionName = "0.1.2-2-SNAPSHOT"
     mavens {
         maven {
             mavenType = 'local'

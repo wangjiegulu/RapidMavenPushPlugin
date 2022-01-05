@@ -14,6 +14,7 @@ gen/
 out/
 
 # Gradle files
+.idea/
 .gradle/
 build/
 
@@ -55,3 +56,6 @@ freeline/
 freeline_project_description.json
 
 */mavenupload/maven_company.properties
+
+
+repository

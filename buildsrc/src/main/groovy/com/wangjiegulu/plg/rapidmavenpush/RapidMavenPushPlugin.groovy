@@ -46,11 +46,23 @@ class RapidMavenPushPlugin implements Plugin<Project> {
             println("+-----------------------------------------------------------------------------------+")
 
             def mvnType = parameterParser.getParameter(MavenPushPropertyKeys.POM_MAVEN_TYPE, rapidMavenPushExtension.defaultMavenType)
-
             if (null == mvnType) {
                 RapidMavenPushLog.w("POM_MAVEN_TYPE property is null. Please `ext.POM_MAVEN_TYPE` in build.gradle or `./gradlew clean rapidUploadArchives -POM_MAVEN_TYPE=...` in command line.")
                 return
             }
+
+            RapidMavenPushLog.i("---------------------------Gradle Params Analyze START ---------------------------")
+            //record gradle params
+            String versionName = parameterParser.getStringParameter(MavenPushPropertyKeys.POM_ARCHIVE_VERSION_NAME)
+            RapidMavenPushLog.i(MavenPushPropertyKeys.POM_ARCHIVE_VERSION_NAME + " == " + versionName)
+            String userName = parameterParser.getStringParameter(MavenPushPropertyKeys.POM_OSSRH_USERNAME)
+            RapidMavenPushLog.i(MavenPushPropertyKeys.POM_OSSRH_USERNAME + " == " + userName)
+            String password = parameterParser.getStringParameter(MavenPushPropertyKeys.POM_OSSRH_PASSWORD)
+            RapidMavenPushLog.i(MavenPushPropertyKeys.POM_OSSRH_PASSWORD + " == " + password)
+            RapidMavenPushLog.i("---------------------------Gradle Params Analyze END ---------------------------")
+
+            RapidMavenPushLog.i("defaultMavenType == " + rapidMavenPushExtension.defaultMavenType)
+            RapidMavenPushLog.i(MavenPushPropertyKeys.POM_MAVEN_TYPE + " == " + mvnType)
 
             HashMap<String, RapidMavenPushExtension.RapidMavenPushType> rapidMavenPushTypes = rapidMavenPushExtension[RapidMavenPushConstants.EXTENSION_NAME_MAVENS].rapidMavenPushTypes
             printProperties = rapidMavenPushExtension.printProperties
@@ -66,6 +78,32 @@ class RapidMavenPushPlugin implements Plugin<Project> {
                 RapidMavenPushLog.i("propertyInjectMode: $propertyInjectMode")
                 injectMavenProperties(rapidMavenPushType.getPropertyFiles(), propertyInjectMode)
             }
+
+            //if POM_ARCHIVE_VERSION_NAME is not set, replace with defaultVersionName
+            if (parameterParser.getStringParameter(MavenPushPropertyKeys.POM_ARCHIVE_VERSION_NAME) == null) {
+                if (rapidMavenPushExtension.defaultVersionName != null) {
+                    RapidMavenPushLog.i("defaultVersionName = " + rapidMavenPushExtension.defaultVersionName)
+
+                    RapidMavenPushLog.i(MavenPushPropertyKeys.POM_ARCHIVE_VERSION_NAME + " replace with " + rapidMavenPushExtension.defaultVersionName)
+                    this.project.extensions.extraProperties.set(MavenPushPropertyKeys.POM_ARCHIVE_VERSION_NAME, rapidMavenPushExtension.defaultVersionName)
+                }
+            }
+
+            RapidMavenPushLog.i("---------------------------Gradle Params Analyze Replace START ---------------------------")
+            // if gradle params is not null, replace with gradle params
+            if (versionName != null) {
+                RapidMavenPushLog.i(MavenPushPropertyKeys.POM_ARCHIVE_VERSION_NAME + " replace with " + versionName)
+                this.project.extensions.extraProperties.set(MavenPushPropertyKeys.POM_ARCHIVE_VERSION_NAME, versionName)
+            }
+            if (userName != null) {
+                RapidMavenPushLog.i(MavenPushPropertyKeys.POM_OSSRH_USERNAME + " replace with " + userName)
+                this.project.extensions.extraProperties.set(MavenPushPropertyKeys.POM_OSSRH_USERNAME, userName)
+            }
+            if (password != null) {
+                RapidMavenPushLog.i(MavenPushPropertyKeys.POM_OSSRH_PASSWORD + " replace with " + password)
+                this.project.extensions.extraProperties.set(MavenPushPropertyKeys.POM_OSSRH_PASSWORD, password)
+            }
+            RapidMavenPushLog.i("---------------------------Gradle Params Analyze Replace END ---------------------------")
 
             project.tasks.withType(Javadoc) {
                 options.addStringOption('Xdoclint:none', '-quiet')
@@ -84,10 +122,7 @@ class RapidMavenPushPlugin implements Plugin<Project> {
                     throw realThrowable
                 }
             }
-
         }
-
-
     }
 
     private void injectMavenProperties(File[] propertiesFiles, String propertyInjectMode) {
